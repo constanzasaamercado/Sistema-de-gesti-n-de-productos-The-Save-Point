@@ -26,7 +26,7 @@ while True:
         print("3. Eliminar videojuego")
         print("4. Visualización de inventario")
         print("5. Buscar un videojuego especifico")
-        print("5. Salir")
+        print("6. Salir")
 
         opcion = input("\nSeleccione una opción: ")
 

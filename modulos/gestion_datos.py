@@ -81,8 +81,6 @@ def mostrar_inventario(lista_para_mostrar):
 def eliminar_videojuego(lista):
     
     nombre_a_eliminar = input("\n Ingrese el nombre del videojuego a eliminar: ").strip().lower()
-    encontrado = False
-
     for videojuego in lista:
         if videojuego["Titulo"].lower() == nombre_a_eliminar:
             lista.remove(videojuego)
