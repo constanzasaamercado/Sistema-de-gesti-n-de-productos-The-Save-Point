@@ -1,6 +1,6 @@
 # Importar módulo de gestión de datos
 import modulos.gestion_datos as gestion
-from modulos.gestion_datos import capturar_datos, mostrar_inventario, eliminar_videojuego, videojuegos_inventario
+from modulos.gestion_datos import capturar_datos, mostrar_inventario, eliminar_videojuego, videojuegos_inventario, buscar_videojuego
 
 
 # Encabezado
@@ -25,6 +25,7 @@ while True:
         print("2. Modificar datos de videojuego")
         print("3. Eliminar videojuego")
         print("4. Visualización de inventario")
+        print("5. Buscar un videojuego especifico")
         print("5. Salir")
 
         opcion = input("\nSeleccione una opción: ")
@@ -45,6 +46,9 @@ while True:
             mostrar_inventario(videojuegos_inventario)
         
         elif opcion == "5":
+            buscar_videojuego(videojuegos_inventario)
+        
+        elif opcion == "6":
             print(f"¡Hasta luego {nombre_usuario}! Cerrando The Save Point...")
             break
         else:
