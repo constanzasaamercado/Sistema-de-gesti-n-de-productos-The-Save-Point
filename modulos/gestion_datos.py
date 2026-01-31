@@ -43,3 +43,33 @@ def capturar_datos():
 
 # Generar un nuevo ID para el videojuego
 nuevo_id = str(int(max(videojuegos_inventario.keys())) + 1).zfill(3)
+
+# Mostrar la existencia de inventario
+def mostrar_inventario(videojuegos_inventario):
+
+    if not videojuegos_inventario:
+        print("\n El inventario esta vacío actualmente.")
+        return
+    
+    print("\n"+("="*60))
+    print(f"{"INVENTARIO DE THE SAVE POINT":^60}") 
+    print("="*60)
+
+    for Videojuego in videojuegos_inventario:
+    
+        print(f" Videojuego ID: {Videojuego}")
+        print(f"Genero: {videojuegos_inventario[Videojuego]['Genero']}")
+
+def eliminar_videojuego(videojuegos_inventario):
+    
+    nombre_a_eliminar = input("\n Ingrese el nombre del videojuego a eliminar: ").strip().lower()
+    encontrado = False
+
+    for videojuego_id, videojuego in videojuegos_inventario.items():
+        if videojuego["Titulo"].lower() == nombre_a_eliminar:
+            del videojuegos_inventario[videojuego_id]
+            print(f"El juego '{videojuego['Titulo']}' ha sido eliminado del inventario.")
+            encontrado = True
+            break
+    if not encontrado:
+        print(f"No se encontró el juego '{nombre_a_eliminar}' en el inventario.")
