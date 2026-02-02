@@ -5,19 +5,24 @@ GENEROS = ("Acción", "Aventura", "RPG", "Estrategia", "Deportes", "Carreras", "
 # Lista de diccionarios para almacenar los datos de los productos.
 
 videojuegos_inventario = [
-    {"Titulo": "Super Mario Bros.", "Genero": "Plataformas", "Anio":"1985", "Plataforma": "NES", "Editor": "Nintendo", "Formato": "Físico", "Precio": 15.000, "Stock": 5},
-    {"Titulo": "Mario Kart Wii", "Genero": "Carreras", "Anio":"2008", "Plataforma": "Wii", "Editor": "Nintendo", "Formato": "Físico", "Precio": 25.000, "Stock": 3},
-    {"Titulo": "Wii Sports Resort", "Genero": "Deportes", "Anio":"2009", "Plataforma": "Wii", "Editor": "Nintendo", "Formato": "Físico", "Precio": 20.000, "Stock": 2},
-    {"Titulo": "Detective Pikachu", "Genero": "Aventura", "Anio":"2019", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Digital", "Precio": 35.000, "Stock": 4},
-    {"Titulo": "Mortal kombat 11", "Genero": "Lucha", "Anio":"2019", "Plataforma": "Pc", "Editor": "NetherRealm Studios", "Formato": "Digital", "Precio": 35.000, "Stock": 15},
-    {"Titulo": "Alice Madness Returns", "Genero": "Acción", "Anio":"2011", "Plataforma": "Pc", "Editor": "Spicy Horse", "Formato": "Digital", "Precio": 10.000, "Stock": 8},
-    {"Titulo": "The Witcher 3: Wild Hunt", "Genero": "RPG", "Anio":"2015", "Plataforma": "Pc", "Editor": "CD Projekt", "Formato": "Digital", "Precio": 40.000, "Stock": 12},
-    {"Titulo": "Let's go Pikachu", "Genero": "Aventura", "Anio":"2018", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Físico", "Precio": 30.000, "Stock": 15},
-    {"Titulo": "Let's go Eevee", "Genero": "Aventura", "Anio":"2018", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Físico", "Precio": 30.000, "Stock": 10},
-    {"Titulo": "Untitled Goose Game", "Genero": "Aventura", "Anio":"2019", "Plataforma": "Pc", "Editor": "House House", "Formato": "Digital", "Precio": 15.000, "Stock": 20},
-    {"Titulo": "God of War", "Genero": "Acción", "Anio":"2018", "Plataforma": "Pc", "Editor": "Santa Monica Studio", "Formato": "Digital", "Precio": 45.000, "Stock": 7},
-    {"Titulo": "Mario kart 8 Deluxe", "Genero": "Carreras", "Anio":"2017", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Físico", "Precio": 40.000, "Stock": 9}, 
+    {"Titulo": "Super Mario Bros.", "Genero": "Plataformas", "Anio":"1985", "Plataforma": "NES", "Editor": "Nintendo", "Formato": "Físico", "Precio": 15000, "Stock": 5},
+    {"Titulo": "Mario Kart Wii", "Genero": "Carreras", "Anio":"2008", "Plataforma": "Wii", "Editor": "Nintendo", "Formato": "Físico", "Precio": 25000, "Stock": 3},
+    {"Titulo": "Wii Sports Resort", "Genero": "Deportes", "Anio":"2009", "Plataforma": "Wii", "Editor": "Nintendo", "Formato": "Físico", "Precio": 20000, "Stock": 2},
+    {"Titulo": "Detective Pikachu", "Genero": "Aventura", "Anio":"2019", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Digital", "Precio": 35000, "Stock": 4},
+    {"Titulo": "Mortal kombat 11", "Genero": "Lucha", "Anio":"2019", "Plataforma": "Pc", "Editor": "NetherRealm Studios", "Formato": "Digital", "Precio": 35000, "Stock": 15},
+    {"Titulo": "Alice Madness Returns", "Genero": "Acción", "Anio":"2011", "Plataforma": "Pc", "Editor": "Spicy Horse", "Formato": "Digital", "Precio": 10000, "Stock": 8},
+    {"Titulo": "The Witcher 3: Wild Hunt", "Genero": "RPG", "Anio":"2015", "Plataforma": "Pc", "Editor": "CD Projekt", "Formato": "Digital", "Precio": 40000, "Stock": 12},
+    {"Titulo": "Let's go Pikachu", "Genero": "Aventura", "Anio":"2018", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Físico", "Precio": 30000, "Stock": 15},
+    {"Titulo": "Let's go Eevee", "Genero": "Aventura", "Anio":"2018", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Físico", "Precio": 30000, "Stock": 10},
+    {"Titulo": "Untitled Goose Game", "Genero": "Aventura", "Anio":"2019", "Plataforma": "Pc", "Editor": "House House", "Formato": "Digital", "Precio": 15000, "Stock": 20},
+    {"Titulo": "God of War", "Genero": "Acción", "Anio":"2018", "Plataforma": "Pc", "Editor": "Santa Monica Studio", "Formato": "Digital", "Precio": 45000, "Stock": 7},
+    {"Titulo": "Mario kart 8 Deluxe", "Genero": "Carreras", "Anio":"2017", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Físico", "Precio": 40000, "Stock": 9}, 
 ] 
+
+# Formato en pesos para el precio
+
+def formatear_pesos(valor):
+    return f"${valor:,.0f}".replace(",", ".")
 
 # Base de datos usuario
 
@@ -104,8 +109,9 @@ def mostrar_inventario(lista):
     print(f"{'INVENTARIO COMPLETO':^60}")
     print("="*60)
     for juego in lista:
+        precio_clp = formatear_pesos(juego['Precio'])
         print(f"🎮 Título: {juego['Titulo']:<25} | Stock: {juego['Stock']}")
-        print(f"   Género: {juego['Genero']:<25} | Precio: ${juego['Precio']}")
+        print(f"   Género: {juego['Genero']:<25} | Precio: {precio_clp}")
         print("-" * 60)
 
 # Busqueda de existencias por nombre
@@ -115,7 +121,8 @@ def buscar_videojuego(lista):
     encontrado = False
     for juego in lista:
         if termino in juego['Titulo'].lower():
-            print(f"✅ Encontrado: {juego['Titulo']} | Stock: {juego['Stock']} | Precio: ${juego['Precio']}")
+            precio_clp = formatear_pesos(juego['Precio'])
+            print(f"✅ Encontrado: {juego['Titulo']} | Stock: {juego['Stock']} | Precio: {precio_clp}")
             encontrado = True
     if not encontrado:
         print(f"❌ No se encontró: '{termino}'")
