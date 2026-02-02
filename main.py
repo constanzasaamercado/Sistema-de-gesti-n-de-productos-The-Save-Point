@@ -2,11 +2,11 @@
 
 from modulos.gestion_datos import (
     capturar_datos, 
-    mostrar_inventario, 
     eliminar_videojuego, 
-    buscar_videojuego,
     modificar_videojuego,
-    videojuegos_inventario 
+    login_sistema,
+    menu_visualizacion,
+    videojuegos_inventario
 )
 
 # Bienvenida al sistema de gestion de productos.
@@ -14,11 +14,15 @@ from modulos.gestion_datos import (
 print("¡BIENVENIDO A THE SAVE POINT!")
 nombre_usuario = input("Usuario: ")
 
+# Ingreso al sistema con usurio y contraseña
+
+acceso_permitido, nombre_usuario = login_sistema()
+
 # Menu principal del sistema
 
 while True:
     print("\n--- MENU PRINCIPAL ---")
-    print("1. Ingresar datos | 2. Modificar datos| 3. Eliminar productos | 4. Visualizar inventario | 5. Buscar videojuego | 6. Salir")
+    print("1. Ingresar datos | 2. Modificar datos| 3. Eliminar productos | 4. Visualización y Búsqueda de existencias | 5. Salir")
     opcion = input("\nSeleccione una opción: ")
 
     if opcion == "1":
@@ -33,12 +37,9 @@ while True:
     elif opcion == "3":
         eliminar_videojuego(videojuegos_inventario)
 
-    elif opcion == "4":
-        mostrar_inventario(videojuegos_inventario)
-        
+    if opcion == "4":
+        menu_visualizacion(videojuegos_inventario)
+               
     elif opcion == "5":
-        buscar_videojuego(videojuegos_inventario)
-        
-    elif opcion == "6":
         print(f"¡Hasta luego {nombre_usuario}!")
         break
