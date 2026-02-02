@@ -1,4 +1,8 @@
-# Diccionario para almacenar los datos de los productos
+# Definición de tuplas.
+
+GENEROS = ("Acción", "Aventura", "RPG", "Estrategia", "Deportes", "Carreras", "Lucha", "Plataformas")
+
+# Lista de diccionarios para almacenar los datos de los productos.
 
 videojuegos_inventario = [
     {"Titulo": "Super Mario Bros.", "Genero": "Plataformas", "Anio":"1985", "Plataforma": "NES", "Editor": "Nintendo", "Formato": "Físico", "Precio": 15.000, "Stock": 5},
@@ -15,77 +19,106 @@ videojuegos_inventario = [
     {"Titulo": "Mario kart 8 Deluxe", "Genero": "Carreras", "Anio":"2017", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Físico", "Precio": 40.000, "Stock": 9}, 
 ] 
 
-# Carga de datos, ingreso y actualización de inventario se manejarán en este módulo.
-
+# Carga de datos e ingreso y de inventario se manejarán en este módulo.
 
 def capturar_datos():
-    print("Ingrese los datos del nuevo videojuego:")
+    print("\n--- Registro de Nuevo Videojuego ---")
+    titulo = input("Título: ").strip().title()
 
-    Titulo = input("Titulo: ")
-    Genero = input("Género: ")
-    Anio = input("Anio: ")
-    Plataforma = input("Plataforma: ")
-    Editor = input("Editor: ")
-    Formato = input("Formato (Físico/Digital): ")
-    Precio = float(input("Precio: "))
-    Stock = int(input("Stock inicial: "))
+    print(f"Géneros permitidos: {GENEROS}")
+    genero = input("Elija el Género: ").strip().capitalize()
 
+    if genero not in GENEROS:
+        print(f"⚠️ Nota: '{genero}' no es un género estándar, pero se guardará igual.")
+
+    while True:
+        try:
+            precio = float(input("Precio: "))
+            stock = int(input("Stock inicial: "))
+            break
+        except ValueError:
+            print("❌ Error: Ingrese valores numéricos válidos para Precio y Stock.")
+# Valores por defecto si no se piden
     return {
-        "Titulo": Titulo,"Genero": Genero,"Anio": Anio,
-        "Plataforma": Plataforma,"Editor": Editor,"Formato": Formato,
-        "Precio": Precio,"Stock": Stock
+        "Titulo": titulo, "Genero": genero, "Precio": precio, "Stock": stock,
+        "Anio": "N/A", "Plataforma": "N/A" 
     }
 
-# Mostrar la existencia de inventario
+# Visualización de existencias de videojuegos.
+
+def mostrar_inventario(lista):
+    if not lista:
+        print("\n⚠️ El inventario está vacío.")
+        return
+    print("\n" + "="*60)
+    print(f"{'INVENTARIO COMPLETO':^60}")
+    print("="*60)
+    for juego in lista:
+        print(f"🎮 Título: {juego['Titulo']:<25} | Stock: {juego['Stock']}")
+        print(f"   Género: {juego['Genero']:<25} | Precio: ${juego['Precio']}")
+        print("-" * 60)
+
+# Busqueda de existencias por nombre
 
 def buscar_videojuego(lista):
+    termino = input("\n🔍 Nombre a buscar: ").strip().lower()
+    encontrado = False
+    for juego in lista:
+        if termino in juego['Titulo'].lower():
+            print(f"✅ Encontrado: {juego['Titulo']} | Stock: {juego['Stock']} | Precio: ${juego['Precio']}")
+            encontrado = True
+    if not encontrado:
+        print(f"❌ No se encontró: '{termino}'")
+
+# Actualización de inventario se manejará en este módulo.        
+
+def modificar_videojuego(lista):
+    """Busca un juego y permite elegir qué campo actualizar."""
     if not lista:
-        print("\n⚠️ No hay videojuegos registrados para buscar.")
+        print("\n⚠️ El inventario está vacío.")
         return
-    termino = input("\n🔍 Ingrese el nombre del videojuego a buscar: ").strip().lower()
+
+    nombre_buscado = input("\n📝 Ingrese el nombre del juego a modificar: ").strip().lower()
     encontrado = False
 
-    print("\n" + ("-"*60))
-    print(f"{"RESULTADOS DE BÚSQUEDA":^60}")
-    print("-"*60)
-
-    for videojuego in lista:
-        if termino in videojuego["Titulo"].lower():
-            print(f"🎮 Titulo: {videojuego["Titulo"]:<25} | ID: {lista.index(videojuego)}")
-            print(f"    Genero: {videojuego["Genero"]:<25} | Precio: ${videojuego["Precio"]}")
-            print(f"    Stock: {videojuego["Stock"]:<27} | Plataforma: {videojuego["Plataforma"]}")
-            print("-"* 60)
+    for juego in lista:
+        if juego['Titulo'].lower() == nombre_buscado:
             encontrado = True
+            print(f"\n🎮 Juego encontrado: {juego['Titulo']}")
+            print("¿Qué desea modificar?")
+            print("1. Precio")
+            print("2. Stock")
+            print("3. Cancelar")
+            
+            opcion_mod = input("Seleccione una opción: ")
+
+            if opcion_mod == "1":
+                nuevo_precio = float(input(f"Precio actual: ${juego['Precio']}. Nuevo precio: "))
+                juego['Precio'] = nuevo_precio
+                print("✅ Precio actualizado con éxito.")
+            
+            elif opcion_mod == "2":
+                nuevo_stock = int(input(f"Stock actual: {juego['Stock']}. Nuevo stock: "))
+                juego['Stock'] = nuevo_stock
+                print("✅ Stock actualizado con éxito.")
+            
+            elif opcion_mod == "3":
+                print("Operación cancelada.")
+            
+            else:
+                print("⚠️ Opción no válida.")
             break
-
-        if not encontrado:
-            print(f"No se encontraron coincidencias para: '{termino}'")
-
-def mostrar_inventario(lista_para_mostrar):
-
-    if not lista_para_mostrar:
-         print("\n El inventario esta vacío actualmente.")
-         return
     
-    print("\n"+("="*60))
-    print(f"{'INVENTARIO DE THE SAVE POINT':^60}") 
-    print("="*60)
+    if not encontrado:
+        print(f"❌ No se encontró el juego: '{nombre_buscado}'")
 
-    for Videojuego in lista_para_mostrar:
-         print(f"Titulo:{Videojuego["Titulo"]:<25} | Stock: {Videojuego["Stock"]}")
-         print(f"Genero: {Videojuego["Genero"]:<25} | Precio: ${Videojuego["Precio"]}")
-         print("-" * 60)
-
-# Eliminar videojuego
+# Eliminación de videojuegos del inventario
 
 def eliminar_videojuego(lista):
-    
-    nombre_a_eliminar = input("\n Ingrese el nombre del videojuego a eliminar: ").strip().lower()
-    for videojuego in lista:
-        if videojuego["Titulo"].lower() == nombre_a_eliminar:
-            lista.remove(videojuego)
-            print(f"El videojuego '{videojuego['Titulo']}' ha sido eliminado del inventario.")
-            encontrado = True
-            break
-    if not encontrado:
-        print(f"No se encontró el videojuego '{nombre_a_eliminar}' en el inventario.")
+    nombre = input("\n🗑️ Nombre del juego a eliminar: ").strip().lower()
+    for juego in lista:
+        if juego['Titulo'].lower() == nombre:
+            lista.remove(juego)
+            print(f"✅ '{juego['Titulo']}' eliminado del sistema.")
+            return
+    print("❌ Juego no encontrado.")
