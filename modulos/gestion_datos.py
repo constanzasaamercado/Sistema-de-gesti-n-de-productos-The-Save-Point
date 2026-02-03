@@ -19,10 +19,6 @@ videojuegos_inventario = [
     {"Titulo": "Mario kart 8 Deluxe", "Genero": "Carreras", "Anio":"2017", "Plataforma": "Switch", "Editor": "Nintendo", "Formato": "Físico", "Precio": 40000, "Stock": 9}, 
 ] 
 
-# Formato en pesos para el precio
-
-def formatear_pesos(valor):
-    return f"${valor:,.0f}".replace(",", ".")
 
 # Base de datos usuario
 
