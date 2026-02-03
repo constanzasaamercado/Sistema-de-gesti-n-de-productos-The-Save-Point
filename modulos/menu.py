@@ -7,7 +7,7 @@ from modulos.gestion_datos import GENEROS, USUARIOS_SISTEMA, videojuegos_inventa
 # Mensaje de bienvenida
 
 def mostrar_bienvenida(usuario):
-    # limpiar_pantalla()
+    limpiar_pantalla()
     print("=" * 50)
     print(f"{'SISTEMA DE GESTIÓN DE THE SAVE POINT':^50}")
     print("=" * 50)
@@ -17,7 +17,7 @@ def mostrar_bienvenida(usuario):
 # Ingreso al sistema por usuario
 
 def login_sistema():
-    # limpiar_pantalla()
+    limpiar_pantalla()
     print("\n" + "*"*30)
     print(f"{'ACCESO AL SISTEMA':^30}")
     print("*"*30)
@@ -170,8 +170,8 @@ def eliminar_videojuego(lista):
     nombre = input("\n🗑️ Nombre del juego a eliminar: ").strip().lower()
     for juego in lista:
         if juego['Titulo'].lower() == nombre:
-            confirmacion = input(f"¿Está seguro que desea eliminar '{juego['Titulo']}'? (Si/No): ").strip().upper()
-            if confirmacion == "Si":
+            confirmacion = input(f"¿Está seguro que desea eliminar '{juego['Titulo']}'? (SI/NO): ").strip().upper()
+            if confirmacion == "SI":
                 lista.remove(juego)
                 print(f"✅ '{juego['Titulo']}' eliminado del sistema.")
             else:
